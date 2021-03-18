@@ -20,9 +20,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author Robin Müller
- */
 @Extension(dynamicLoadable = YesNoMaybe.NO)
 public class PrometheusConfiguration extends GlobalConfiguration {
 
@@ -36,18 +33,8 @@ public class PrometheusConfiguration extends GlobalConfiguration {
     private String urlName = null;
     private String additionalPath;
     private String defaultNamespace = "default";
-    private String jobAttributeName = "jenkins_job";
     private boolean useAuthenticatedEndpoint;
     private Long collectingMetricsPeriodInSeconds = null;
-
-    private boolean countSuccessfulBuilds = true;
-    private boolean countUnstableBuilds = true;
-    private boolean countFailedBuilds = true;
-    private boolean countNotBuiltBuilds = true;
-    private boolean countAbortedBuilds = true;
-    private boolean fetchTestResults = true;
-
-    private boolean processingDisabledBuilds = false;
 
     public PrometheusConfiguration() {
         load();
@@ -56,7 +43,7 @@ public class PrometheusConfiguration extends GlobalConfiguration {
     }
 
     public static PrometheusConfiguration get() {
-        Descriptor configuration = Jenkins.getInstance().getDescriptor(PrometheusConfiguration.class);
+        Descriptor configuration = Jenkins.get().getDescriptor(PrometheusConfiguration.class);
         return (PrometheusConfiguration) configuration;
     }
 
@@ -65,16 +52,8 @@ public class PrometheusConfiguration extends GlobalConfiguration {
         setPath(json.getString("path"));
         useAuthenticatedEndpoint = json.getBoolean("useAuthenticatedEndpoint");
         defaultNamespace = json.getString("defaultNamespace");
-        jobAttributeName = json.getString("jobAttributeName");
-        countSuccessfulBuilds = json.getBoolean("countSuccessfulBuilds");
-        countUnstableBuilds = json.getBoolean("countUnstableBuilds");
-        countFailedBuilds = json.getBoolean("countFailedBuilds");
-        countNotBuiltBuilds = json.getBoolean("countNotBuiltBuilds");
-        countAbortedBuilds = json.getBoolean("countAbortedBuilds");
-        fetchTestResults = json.getBoolean("fetchTestResults");
         collectingMetricsPeriodInSeconds = validateProcessingMetricsPeriodInSeconds(json);
 
-        processingDisabledBuilds = json.getBoolean("processingDisabledBuilds");
 
         save();
         return super.configure(req, json);
@@ -92,15 +71,6 @@ public class PrometheusConfiguration extends GlobalConfiguration {
         urlName = path.split("/")[0];
         List<String> pathParts = Arrays.asList(path.split("/"));
         additionalPath = (pathParts.size() > 1 ? "/" : "") + StringUtils.join(pathParts.subList(1, pathParts.size()), "/");
-        save();
-    }
-
-    public String getJobAttributeName() {
-        return jobAttributeName;
-    }
-
-    public void setJobAttributeName(String jobAttributeName) {
-        this.jobAttributeName = jobAttributeName;
         save();
     }
 
@@ -132,69 +102,6 @@ public class PrometheusConfiguration extends GlobalConfiguration {
 
     public void setUseAuthenticatedEndpoint(boolean useAuthenticatedEndpoint) {
         this.useAuthenticatedEndpoint = useAuthenticatedEndpoint;
-        save();
-    }
-
-    public boolean isCountSuccessfulBuilds() {
-        return countSuccessfulBuilds;
-    }
-
-    public void setCountSuccessfulBuilds(boolean countSuccessfulBuilds) {
-        this.countSuccessfulBuilds = countSuccessfulBuilds;
-        save();
-    }
-
-    public boolean isCountUnstableBuilds() {
-        return countUnstableBuilds;
-    }
-
-    public void setCountUnstableBuilds(boolean countUnstableBuilds) {
-        this.countUnstableBuilds = countUnstableBuilds;
-        save();
-    }
-
-    public boolean isCountFailedBuilds() {
-        return countFailedBuilds;
-    }
-
-    public void setCountFailedBuilds(boolean countFailedBuilds) {
-        this.countFailedBuilds = countFailedBuilds;
-        save();
-    }
-
-    public boolean isCountNotBuiltBuilds() {
-        return countNotBuiltBuilds;
-    }
-
-    public void setCountNotBuiltBuilds(boolean countNotBuiltBuilds) {
-        this.countNotBuiltBuilds = countNotBuiltBuilds;
-        save();
-    }
-
-    public boolean isCountAbortedBuilds() {
-        return countAbortedBuilds;
-    }
-
-    public void setCountAbortedBuilds(boolean countAbortedBuilds) {
-        this.countAbortedBuilds = countAbortedBuilds;
-        save();
-    }
-
-    public boolean isFetchTestResults() {
-        return fetchTestResults;
-    }
-
-    public void setFetchTestResults(boolean fetchTestResults) {
-        this.fetchTestResults = fetchTestResults;
-        save();
-    }
-
-    public boolean isProcessingDisabledBuilds() {
-        return processingDisabledBuilds;
-    }
-
-    public void setProcessingDisabledBuilds(boolean processingDisabledBuilds) {
-        this.processingDisabledBuilds = processingDisabledBuilds;
         save();
     }
 

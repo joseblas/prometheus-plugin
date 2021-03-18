@@ -6,18 +6,12 @@ import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.dropwizard.DropwizardExports;
 import io.prometheus.client.exporter.common.TextFormat;
 import io.prometheus.client.hotspot.DefaultExports;
-import jenkins.metrics.api.Metrics;
-import org.jenkinsci.plugins.prometheus.DiskUsageCollector;
-import org.jenkinsci.plugins.prometheus.ExecutorCollector;
-import org.jenkinsci.plugins.prometheus.JenkinsStatusCollector;
-import org.jenkinsci.plugins.prometheus.JobCollector;
-import org.jenkinsci.plugins.prometheus.util.MetricsFormatter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.concurrent.atomic.AtomicReference;
+import jenkins.metrics.api.Metrics;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DefaultPrometheusMetrics implements PrometheusMetrics {
 
@@ -28,11 +22,7 @@ public class DefaultPrometheusMetrics implements PrometheusMetrics {
 
     public DefaultPrometheusMetrics() {
         CollectorRegistry collectorRegistry = CollectorRegistry.defaultRegistry;
-        collectorRegistry.register(new JobCollector());
-        collectorRegistry.register(new JenkinsStatusCollector());
         collectorRegistry.register(new DropwizardExports(Metrics.metricRegistry()));
-        collectorRegistry.register(new DiskUsageCollector());
-        collectorRegistry.register(new ExecutorCollector());
 
         // other collectors from other plugins
         ExtensionList.lookup(Collector.class).forEach( c -> collectorRegistry.register(c));
@@ -52,7 +42,7 @@ public class DefaultPrometheusMetrics implements PrometheusMetrics {
     public void collectMetrics() {
         try (StringWriter buffer = new StringWriter()) {
             TextFormat.write004(buffer, collectorRegistry.metricFamilySamples());
-            cachedMetrics.set(MetricsFormatter.formatMetrics(buffer.toString()));
+            cachedMetrics.set(buffer.toString());
         } catch (IOException e) {
             logger.debug("Unable to collect metrics");
         }

@@ -39,35 +39,6 @@
     <script.security.version>1.56</script.security.version>
   </properties>
 
-  <organization>
-    <name>Methodair</name>
-    <url>http://www.methodair.io</url>
-  </organization>
-
-  <licenses>
-    <license>
-      <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-
-  <developers>
-    <developer>
-      <id>devguy</id>
-      <name>Marky Jackson</name>
-      <organization>Methodair</organization>
-      <organizationUrl>http://www.methodair.io/</organizationUrl>
-    </developer>
-  </developers>
-
-  <scm>
-    <connection>scm:git:git://github.com/jenkinsci/prometheus-plugin.git</connection>
-    <developerConnection>scm:git:git@github.com:jenkinsci/prometheus-plugin.git</developerConnection>
-    <url>https://github.com/jenkinsci/prometheus-plugin/</url>
-    <tag>prometheus-2.0.8</tag>
-  </scm>
-
   <repositories>
     <repository>
       <id>repo.jenkins-ci.org</id>
@@ -82,36 +53,6 @@
   </pluginRepositories>
 
   <dependencies>
-    <dependency>
-      <groupId>org.jenkins-ci.plugins.workflow</groupId>
-      <artifactId>workflow-api</artifactId>
-      <version>${workflow.api.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jenkins-ci.plugins.pipeline-stage-view</groupId>
-      <artifactId>pipeline-rest-api</artifactId>
-      <version>${pipeline.rest.api.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jenkins-ci.plugins.workflow</groupId>
-      <artifactId>workflow-job</artifactId>
-      <version>${workflow.job.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jenkins-ci.plugins.workflow</groupId>
-      <artifactId>workflow-support</artifactId>
-      <version>${workflow.support.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jenkins-ci.plugins.workflow</groupId>
-      <artifactId>workflow-step-api</artifactId>
-      <version>${workflow.step.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jenkins-ci.plugins</groupId>
-      <artifactId>pipeline-graph-analysis</artifactId>
-      <version>${pipeline.graph.analysis.version}</version>
-    </dependency>
     <dependency>
       <groupId>org.jenkins-ci.plugins</groupId>
       <artifactId>structs</artifactId>
