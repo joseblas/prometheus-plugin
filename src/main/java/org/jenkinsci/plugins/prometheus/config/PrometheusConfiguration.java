@@ -43,7 +43,7 @@ public class PrometheusConfiguration extends GlobalConfiguration {
     }
 
     public static PrometheusConfiguration get() {
-        Descriptor configuration = Jenkins.get().getDescriptor(PrometheusConfiguration.class);
+        Descriptor configuration = Jenkins.getInstance().getDescriptor(PrometheusConfiguration.class);
         return (PrometheusConfiguration) configuration;
     }
 
