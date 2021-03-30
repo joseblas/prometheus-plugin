@@ -3,7 +3,8 @@ pipeline {
     stages {
         stage('Example Build') {
             steps {
-                sh "mvn --show-version -q --batch-mode -Dmaven.test.failure.ignore=true -Dspotbugs.failOnError=false clean surefire-report:report install site"
+                echo "starting the build"
+                sh "mvn --show-version --batch-mode -Dmaven.test.failure.ignore=true -Dspotbugs.failOnError=false clean surefire-report:report install site"
             }
         }
     }
