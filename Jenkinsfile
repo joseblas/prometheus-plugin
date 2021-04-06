@@ -3,10 +3,15 @@ pipeline {
     stages {
         stage('Example Build') {
             steps {
-                echo "starting the build"
+                echo "first stage"
                 sh "mvn --show-version -q --batch-mode -Dmaven.test.failure.ignore=true -Dspotbugs.failOnError=false clean surefire-report:report install site"
             }
         }
+        stage('what') {
+                    steps {
+                        echo "second stage"
+                    }
+                }
     }
     post {
             always {
