@@ -9,6 +9,10 @@ metadata:
 spec:
   nodeSelector:
     cloud.google.com/gke-nodepool: pool-2
+  volumes:
+   - name: mvn
+     persistentVolumeClaim:
+       claimName: mvn-pvc  
   containers:
   - name: mvn
     image: maven:3.6.3-adoptopenjdk-8
@@ -16,6 +20,10 @@ spec:
     command:
     - cat
     tty: true
+    volumeMounts:
+      - mountPath: "/root/.m2/repository"
+        name: mvn
+
   restartPolicy: Never
 """
    }
