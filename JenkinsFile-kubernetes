@@ -1,0 +1,47 @@
+pipeline {
+    agent {
+            kubernetes {
+        label "POD_LABEL"
+        yaml """
+kind: Pod
+metadata:
+  name: jenkins-agent
+spec:
+  containers:
+  - name: mvn
+    image: maven:3.6.3-adoptopenjdk-8
+    imagePullPolicy: Always
+    command:
+    - cat
+    tty: true
+  restartPolicy: Never
+"""
+   }
+    }
+    stages {
+        stage('Example Build') {
+            steps {
+                container('mvn') {
+                echo "first stage" 
+                sh "whoami"
+                sh "echo $PATH"
+                sh "ls -la"
+                sh "mvn --show-version -q --batch-mode -Dmaven.test.failure.ignore=true -Dspotbugs.failOnError=false clean surefire-report:report install site"
+            }
+            }
+        }
+        stage('what') {
+                    steps {
+                        echo "second stage"
+                        sh "echo pwd"
+                    }
+                }
+    }
+    post {
+            always {
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                archiveArtifacts artifacts: 'target/*.hpi', fingerprint: true
+                junit 'target/surefire-reports/*.xml'
+            }
+        }
+}
