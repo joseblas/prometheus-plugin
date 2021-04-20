@@ -17,6 +17,13 @@ spec:
   - name: mvn
     image: maven:3.6.3-adoptopenjdk-8
     imagePullPolicy: Always
+    resources:
+      requests:
+        memory: 1G
+        cpu: 1
+      limits:
+        memory: 2G
+        cpu: 1
     command:
     - cat
     tty: true
