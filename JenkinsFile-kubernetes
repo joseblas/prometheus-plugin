@@ -7,6 +7,8 @@ kind: Pod
 metadata:
   name: jenkins-agent
 spec:
+  nodeSelector:
+    cloud.google.com/gke-nodepool: pool-2
   containers:
   - name: mvn
     image: maven:3.6.3-adoptopenjdk-8
