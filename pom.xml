@@ -16,6 +16,9 @@
   <url>https://github.com/jenkinsci/prometheus-plugin</url>
   <inceptionYear>2016</inceptionYear>
 
+  <build>
+    <finalName>${project.artifactId}-${project.version}-${maven.build.timestamp}</finalName>
+  </build>
   <properties>
     <jenkins.version>2.204.1</jenkins.version>
     <java.level>8</java.level>
