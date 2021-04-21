@@ -30,6 +30,7 @@ spec:
     volumeMounts:
       - mountPath: "/root/.m2/repository"
         name: mvn
+        readOnly: true
 
   restartPolicy: Never
 """
@@ -43,7 +44,7 @@ spec:
                 sh "whoami"
                 sh "echo $PATH"
                 sh "ls -la"
-                sh "mvn --show-version -q --batch-mode -Dmaven.test.failure.ignore=true -Dspotbugs.failOnError=false clean surefire-report:report install site"
+                sh "mvn --show-version -q --batch-mode -Dmaven.test.failure.ignore=true -Dspotbugs.failOnError=false clean surefire-report:report site"
             }
             }
         }
