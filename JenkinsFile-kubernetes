@@ -12,7 +12,7 @@ spec:
   volumes:
    - name: mvn
      persistentVolumeClaim:
-       claimName: mvn-pvc  
+       claimName: mvn-shared-pvc
   containers:
   - name: mvn
     image: maven:3.6.3-adoptopenjdk-8
