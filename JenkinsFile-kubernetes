@@ -16,10 +16,10 @@ spec:
     resources:
       requests:
         memory: 1024Mi
-        cpu: 650m
+        cpu: 900m
       limits:
         memory: 1024Mi
-        cpu: 650m
+        cpu: 900m
     command:
     - cat
     tty: true
