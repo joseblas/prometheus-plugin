@@ -20,6 +20,7 @@ spec:
     volumeMounts:
       - mountPath: "/root/.m2/repository"
         name: mvn
+        readOnly: true
     resources:
       requests:
         memory: 1G
