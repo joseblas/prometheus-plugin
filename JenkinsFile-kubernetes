@@ -7,20 +7,12 @@ kind: Pod
 metadata:
   name: jenkins-agent
 spec:
-  volumes:
-  - name: mvn
-    persistentVolumeClaim:
-      claimName: mvn-shared-pvc
   nodeSelector:
     cloud.google.com/gke-nodepool: pool-2
   containers:
   - name: mvn
     image: maven:3.6.3-adoptopenjdk-8
     imagePullPolicy: Always
-    volumeMounts:
-      - mountPath: "/root/.m2/repository"
-        name: mvn
-        readOnly: true
     resources:
       requests:
         memory: 1G
