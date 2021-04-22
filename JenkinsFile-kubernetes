@@ -15,10 +15,10 @@ spec:
     imagePullPolicy: Always
     resources:
       requests:
-        memory: 1.25G
+        memory: 1.20G
         cpu: 750m
       limits:
-        memory: 1.25G
+        memory: 1.20G
         cpu: 750m
     command:
     - cat
