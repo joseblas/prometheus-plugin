@@ -8,7 +8,7 @@ metadata:
   name: jenkins-agent
 spec:
   volumes:
-    - name: mvn
+  - name: mvn
     persistentVolumeClaim:
       claimName: mvn-shared-pvc
   nodeSelector:
