@@ -15,7 +15,7 @@ spec:
     imagePullPolicy: Always
     resources:
       requests:
-        memory: 512M
+        memory: 1G
         cpu: 750m
       limits:
         memory: 1G
@@ -32,7 +32,7 @@ spec:
             steps {
                 container('mvn') {
                 echo "first stage" 
-                sh "mvn --show-version -q --batch-mode -Dmaven.test.failure.ignore=true -Dspotbugs.failOnError=false clean surefire-report:report install site "
+                sh "mvn --show-version --batch-mode -Dmaven.test.failure.ignore=true -Dspotbugs.failOnError=false clean surefire-report:report install site "
             }
             }
         }
