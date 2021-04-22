@@ -9,7 +9,6 @@ metadata:
 spec:
   volumes:
   - name: mvn
-    readOnly: true
     persistentVolumeClaim:
       claimName: mvn-shared-pvc
   nodeSelector:
