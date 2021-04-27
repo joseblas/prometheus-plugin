@@ -1,0 +1,47 @@
+pipeline {
+    agent {
+            kubernetes {
+        label "POD_LABEL"
+        yaml """
+kind: Pod
+metadata:
+  name: jenkins-agent
+spec:
+  nodeSelector:
+    cloud.google.com/gke-nodepool: pool-2
+  containers:
+  - name: mvn
+    image: maven:3.6.3-adoptopenjdk-8
+    imagePullPolicy: Always
+    resources:
+      requests:
+        memory: 1.25Gi
+        cpu: 900m
+      limits:
+        memory: 1.25Gi
+        cpu: 900m
+    command:
+    - cat
+    tty: true
+  restartPolicy: Never
+"""
+   }
+    }
+    stages {
+        stage('Example Build') {
+            steps {
+                container('mvn') {
+                echo "first stage" 
+                sh "mvn --show-version --batch-mode -Dmaven.test.failure.ignore=true -Dspotbugs.failOnError=false clean surefire-report:report install site "
+            }
+            }
+        }
+    }
+    post {
+            always {
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                archiveArtifacts artifacts: 'target/*.hpi', fingerprint: true
+                junit 'target/surefire-reports/*.xml'
+            }
+        }
+}
