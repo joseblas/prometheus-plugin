@@ -95,6 +95,6 @@ Add in a title, edit the PR template, and then press the Create pull request but
 
 Wait for your Pull Request to be reviewed and merged.
 
-### Congratulations! You just opened a Pull Request...........
+### Congratulations! You just opened a Pull Request............
 
 
